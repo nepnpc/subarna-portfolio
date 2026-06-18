@@ -1,0 +1,394 @@
+/* ================================================================
+   Subarna Katwal — playable film CV. BRUTALIST MONO.
+   Paper + ink + one acid accent. Hard edges, offset shadows,
+   no blur, no gradient. One 44s CSS timeline; JS only seeks --t.
+   ================================================================ */
+
+:root {
+  --total: 44s;
+  --t: 0s;
+
+  --paper:  #f4f4f1;
+  --ink:    #0c0c0c;
+  --soft:   #2e2e2a;
+  --mute:   #76766d;
+  --acid:   #d6ff3f;
+  --line:   #0c0c0c;
+
+  --display: "Space Grotesk", system-ui, sans-serif;
+  --mono:    "JetBrains Mono", ui-monospace, monospace;
+
+  --shadow: 6px 6px 0 var(--ink);
+  --shadow-acid: 6px 6px 0 var(--acid);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; }
+
+html, body { height: 100%; }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--mono); line-height: 1.5;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+em { font-style: normal; background: var(--acid); color: var(--ink); padding: 0 .12em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+::selection { background: var(--ink); color: var(--acid); }
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+
+.skip {
+  position: fixed; top: -120px; left: 16px; z-index: 99;
+  background: var(--ink); color: var(--acid); padding: .6rem 1rem; font-weight: 700;
+  transition: top .15s; text-transform: uppercase;
+}
+.skip:focus { top: 16px; }
+
+/* ---------- film + stage ---------- */
+.film { position: fixed; inset: 0; }
+.stage {
+  position: absolute; inset: 0; overflow: hidden;
+  display: grid; place-items: center;
+  padding: clamp(1.2rem, 5vw, 5rem);
+}
+
+/* ambience — faint graph paper + giant ghost monogram (static) */
+.amb { position: absolute; inset: 0; pointer-events: none; }
+.amb--grid {
+  background-image:
+    linear-gradient(rgba(12,12,12,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(12,12,12,.06) 1px, transparent 1px);
+  background-size: 38px 38px;
+}
+.amb--mark {
+  position: absolute; right: -2vw; bottom: -8vh;
+  font-family: var(--display); font-weight: 700; font-size: 46vh; line-height: .8;
+  color: transparent; -webkit-text-stroke: 2px rgba(12,12,12,.07);
+  letter-spacing: -.05em; user-select: none;
+}
+
+/* ---------- scenes ---------- */
+.scene {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+  gap: clamp(.9rem, 1.8vw, 1.5rem);
+  max-width: min(1080px, 90vw); margin-inline: auto;
+  padding-inline: clamp(0px, 2vw, 1.5rem);
+  opacity: 0; visibility: hidden;
+}
+
+/* inverted (black) scenes — hard cut energy */
+.scene--0, .scene--6 {
+  background: var(--ink); color: var(--paper);
+  inset: 0; place-content: center; align-items: flex-start;
+  padding: clamp(1.4rem,6vw,6rem); max-width: none;
+}
+.scene--0 .prompt, .scene--6 em { color: var(--acid); background: none; padding: 0; }
+
+/* subtle scan-line texture on dark scenes */
+.scene--0::after, .scene--6::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(255,255,255,0.018) 3px,
+    rgba(255,255,255,0.018) 4px
+  );
+  pointer-events: none; z-index: 0;
+}
+.scene--0 > *, .scene--6 > * { position: relative; z-index: 1; }
+
+.scene, .cue {
+  animation-duration: var(--total);
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+  animation-play-state: paused;
+  animation-delay: var(--t);
+}
+.scene--0 { animation-name: s0; }
+.scene--1 { animation-name: s1; }
+.scene--2 { animation-name: s2; }
+.scene--3 { animation-name: s3; }
+.scene--4 { animation-name: s4; }
+.scene--5 { animation-name: s5; }
+.scene--6 { animation-name: s6; }
+
+/* ---------- type ---------- */
+.kicker {
+  display: inline-flex; align-items: center; gap: .6rem;
+  font-size: .78rem; font-weight: 700; letter-spacing: .12em;
+  padding: .45rem .9rem; border: 2px solid var(--ink); background: var(--paper);
+  box-shadow: var(--shadow-acid);
+}
+.dot { width: 9px; height: 9px; background: var(--ink); }
+.dot::after { content:""; }
+
+.bigname {
+  font-family: var(--display); font-weight: 700; text-transform: uppercase;
+  letter-spacing: -.04em; line-height: .84;
+  font-size: clamp(3.4rem, 15vw, 12rem);
+}
+.bigname span:nth-child(2) { color: var(--paper); -webkit-text-stroke: 2.5px var(--ink); }
+.thesis { font-size: clamp(1.05rem, 2.6vw, 1.7rem); max-width: 26ch; font-weight: 500; line-height: 1.35; }
+
+/* hire-scene portrait */
+.portrait {
+  position: absolute; top: 0; right: 0; bottom: 0; margin: 0;
+  width: clamp(360px, 52vw, 760px); z-index: 0; pointer-events: none;
+}
+.portrait img {
+  width: 100%; height: 100%; object-fit: cover; object-position: 60% 38%;
+  display: block;
+  filter: grayscale(1) contrast(1.18) brightness(.9);
+  mix-blend-mode: screen;
+  -webkit-mask-image: linear-gradient(100deg, transparent 0%, #000 42%, #000 100%);
+          mask-image: linear-gradient(100deg, transparent 0%, #000 42%, #000 100%);
+}
+.scene--6 .endline, .scene--6 .end-sub,
+.scene--6 .end-links, .scene--6 .end-cv { position: relative; z-index: 2; }
+
+@media (max-width: 760px) {
+  .portrait { width: 100%; }
+  .portrait img {
+    object-position: 50% 26%; filter: grayscale(1) contrast(1.18) brightness(.7);
+    -webkit-mask-image: linear-gradient(180deg, transparent 4%, #000 60%);
+            mask-image: linear-gradient(180deg, transparent 4%, #000 60%);
+  }
+}
+
+.eyebrow {
+  font-size: .82rem; font-weight: 700; letter-spacing: .16em;
+  background: var(--ink); color: var(--acid); padding: .35rem .7rem; align-self: flex-start;
+}
+
+/* boot */
+.boot { font-size: clamp(1rem, 3vw, 1.7rem); }
+.boot__line { color: #c9c9c2; }
+.prompt { color: var(--acid); }
+.boot__out { color: var(--paper); margin-top: .5rem; font-size: clamp(1.5rem,5.5vw,3rem); font-weight: 500; }
+.car { color: var(--acid); animation: blink 1.05s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* work reel */
+.reel { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 2.4vw, 2rem); width: 100%; }
+.film-card {
+  border: 2px solid var(--ink); background: var(--paper); box-shadow: var(--shadow);
+  padding: clamp(1.1rem,2vw,1.7rem);
+  transition: transform .12s, box-shadow .12s;
+}
+.film-card:hover { transform: translate(-2px,-2px); box-shadow: 9px 9px 0 var(--ink); }
+.film-card header { display: flex; justify-content: space-between; font-size: .72rem; font-weight: 700; letter-spacing: .1em; }
+.film-card__yr { color: var(--mute); }
+.film-card__live { background: var(--acid); padding: 0 .4rem; }
+.film-card h2 { font-family: var(--display); font-weight: 700; font-size: clamp(1.5rem,3.4vw,2.3rem); letter-spacing: -.02em; margin: .7rem 0 .5rem; text-transform: uppercase; }
+.film-card p { color: var(--soft); font-size: .92rem; line-height: 1.5; }
+.chips { list-style: none; display: flex; flex-wrap: wrap; gap: .4rem; padding: .9rem 0; }
+.chips li { font-size: .68rem; font-weight: 700; padding: .26rem .55rem; border: 2px solid var(--ink); }
+.film-card a { font-size: .76rem; font-weight: 700; border-bottom: 3px solid var(--acid); }
+
+/* caps */
+.caps { display: grid; grid-template-columns: repeat(2,1fr); gap: clamp(1rem,2.4vw,2rem); width: 100%; }
+.cap-col { border-left: 4px solid var(--ink); padding-left: 1rem; }
+.cap-col h3 { font-family: var(--display); font-weight: 700; font-size: clamp(1.3rem,2.8vw,1.8rem); letter-spacing: -.02em; text-transform: uppercase; }
+.cap-col p { color: var(--soft); font-size: .82rem; margin-top: .4rem; line-height: 1.45; }
+
+/* PM challenge scene */
+.ch-header { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+.ch-big {
+  font-family: var(--display); font-weight: 700; line-height: 1;
+  font-size: clamp(4.5rem, 14vw, 9rem); letter-spacing: -.04em;
+}
+.ch-denom { font-size: clamp(1.2rem,3.5vw,2.2rem); font-weight: 700; color: var(--mute); }
+.ch-tag {
+  font-size: .78rem; font-weight: 700; letter-spacing: .08em;
+  background: var(--acid); color: var(--ink); padding: .25rem .55rem;
+}
+.day-grid { display: flex; flex-wrap: wrap; gap: 5px; max-width: 440px; }
+.dg { width: 26px; height: 26px; border: 2px solid var(--ink); display: block; }
+.dg--done { background: var(--acid); }
+.dg--active { background: var(--ink); position: relative; }
+.dg--active::after { content: ''; position: absolute; inset: 4px; background: var(--acid); }
+.ch-outputs {
+  font-size: .76rem; font-weight: 500; color: var(--mute);
+  max-width: 52ch; line-height: 1.65; letter-spacing: .02em;
+}
+
+/* receipts */
+.rail { list-style: none; display: grid; gap: 0; padding: 0; width: 100%; border-top: 2px solid var(--ink); }
+.rail li { display: grid; grid-template-columns: 7rem 1fr; gap: 1rem; align-items: baseline;
+  padding: clamp(.6rem,1.3vw,1rem) 0; border-bottom: 2px solid var(--ink); }
+.rail span { font-size: .76rem; font-weight: 700; color: var(--mute); }
+.rail b { font-family: var(--display); font-weight: 700; font-size: clamp(1.05rem,2.1vw,1.4rem); text-transform: uppercase; }
+.rail i { font-style: normal; color: var(--soft); font-size: .82rem; display: block; margin-top: .1rem; }
+.certs-line { font-size: .74rem; font-weight: 500; color: var(--mute); margin-top: .9rem; letter-spacing: .04em; }
+
+/* hire */
+.endline { font-family: var(--display); font-weight: 700; text-transform: uppercase;
+  letter-spacing: -.035em; line-height: .9; font-size: clamp(2.6rem, 10vw, 8rem); }
+.end-sub { color: #c9c9c2; max-width: 42ch; font-size: clamp(1rem,2.2vw,1.4rem); font-weight: 500; }
+.end-links { display: flex; flex-wrap: wrap; gap: 1.3rem; font-size: .88rem; font-weight: 700; }
+.end-links a { border-bottom: 3px solid var(--acid); padding-bottom: 2px; }
+.end-links a:hover { background: var(--acid); color: var(--ink); }
+.end-cv {
+  align-self: flex-start; margin-top: .5rem; font-weight: 700; letter-spacing: .06em;
+  background: var(--acid); color: var(--ink); padding: .85rem 1.5rem; border: 2px solid var(--acid);
+  box-shadow: 6px 6px 0 rgba(255,255,255,.2); transition: transform .12s, box-shadow .12s;
+}
+.end-cv:hover { transform: translate(-2px,-2px); box-shadow: 9px 9px 0 rgba(255,255,255,.2); }
+
+/* ================================================================
+   TIMELINE — scene gates. windows over 44s:
+   s0 0-4 | s1 4-11 | s2 11-19 | s3 19-25 | s4 25-33 | s5 33-40 | s6 40-44
+   All percentages = seconds ÷ 44 × 100.
+   ================================================================ */
+@keyframes s0 { 0%{opacity:0;visibility:visible} 1.14%{opacity:1} 8.18%{opacity:1} 9.09%{opacity:0;visibility:hidden} 100%{opacity:0;visibility:hidden} }
+@keyframes s1 { 0%,9.09%{opacity:0;visibility:hidden;transform:translateY(20px)} 11.36%{opacity:1;visibility:visible;transform:none} 24%{opacity:1} 25%{opacity:0;visibility:hidden} 100%{opacity:0;visibility:hidden} }
+@keyframes s2 { 0%,25%{opacity:0;visibility:hidden;transform:translateY(20px)} 27.27%{opacity:1;visibility:visible;transform:none} 42%{opacity:1} 43.18%{opacity:0;visibility:hidden} 100%{opacity:0;visibility:hidden} }
+@keyframes s3 { 0%,43.18%{opacity:0;visibility:hidden;transform:translateY(20px)} 45.45%{opacity:1;visibility:visible;transform:none} 55.5%{opacity:1} 56.82%{opacity:0;visibility:hidden} 100%{opacity:0;visibility:hidden} }
+@keyframes s4 { 0%,56.82%{opacity:0;visibility:hidden;transform:translateY(20px)} 59.09%{opacity:1;visibility:visible;transform:none} 74%{opacity:1} 75%{opacity:0;visibility:hidden} 100%{opacity:0;visibility:hidden} }
+@keyframes s5 { 0%,75%{opacity:0;visibility:hidden;transform:translateY(20px)} 77.27%{opacity:1;visibility:visible;transform:none} 89.77%{opacity:1} 90.91%{opacity:0;visibility:hidden} 100%{opacity:0;visibility:hidden} }
+@keyframes s6 { 0%,90.91%{opacity:0;visibility:hidden;transform:translateY(24px)} 93.18%{opacity:1;visibility:visible;transform:none} 100%{opacity:1;visibility:visible;transform:none} }
+
+/* -- Scene 0 cues (0–4s) -- */
+.cue--boot1 { animation-name: rsB1; }
+.cue--boot2 { animation-name: rsB2; }
+@keyframes rsB1 { 0%,0.91%{opacity:0;transform:translateX(-12px)} 3.41%{opacity:1;transform:none} 100%{opacity:1} }
+@keyframes rsB2 { 0%,4.55%{opacity:0;transform:translateX(-12px)} 6.82%{opacity:1;transform:none} 100%{opacity:1} }
+
+/* -- Scene 1 cues (4–11s) -- */
+.cue--k1 { animation-name: rs1a; }
+.cue--n1 { animation-name: rs1b; display:inline-block; }
+.cue--n2 { animation-name: rs1c; display:inline-block; }
+.cue--t1 { animation-name: rs1d; }
+@keyframes rs1a { 0%,10.23%{opacity:0;transform:translateY(14px)} 12.5%{opacity:1;transform:none} 100%{opacity:1} }
+@keyframes rs1b { 0%,11.36%{opacity:0;transform:translateX(-60px)} 14.77%{opacity:1;transform:none} 100%{opacity:1} }
+@keyframes rs1c { 0%,12.95%{opacity:0;transform:translateX(60px)} 15.91%{opacity:1;transform:none} 100%{opacity:1} }
+@keyframes rs1d { 0%,14.77%{opacity:0;transform:translateY(16px)} 18.18%{opacity:1;transform:none} 100%{opacity:1} }
+
+/* -- Scene 2 cues (11–19s) -- */
+.cue--e2 { animation-name: rs2a; }
+.cue--p1 { animation-name: rs2b; }
+.cue--p2 { animation-name: rs2c; }
+@keyframes rs2a { 0%,26.14%{opacity:0;transform:translateX(-16px)} 28.41%{opacity:1;transform:none} 100%{opacity:1} }
+@keyframes rs2b { 0%,27.73%{opacity:0;transform:translateY(40px)} 31.82%{opacity:1;transform:none} 100%{opacity:1} }
+@keyframes rs2c { 0%,30%{opacity:0;transform:translateY(40px)} 34.09%{opacity:1;transform:none} 100%{opacity:1} }
+
+/* -- Scene 3 cues (19–25s) -- */
+.cue--e3 { animation-name: rs3a; }
+.cue--c1 { animation-name: rs3b; }
+.cue--c2 { animation-name: rs3c; }
+.cue--c3 { animation-name: rs3d; }
+.cue--c4 { animation-name: rs3e; }
+@keyframes rs3a { 0%,44.32%{opacity:0;transform:translateX(-16px)} 46.59%{opacity:1;transform:none} 100%{opacity:1} }
+@keyframes rs3b { 0%,45.45%{opacity:0;transform:translateX(-26px)} 48.18%{opacity:1;transform:none} 100%{opacity:1} }
+@keyframes rs3c { 0%,47.05%{opacity:0;transform:translateX(26px)} 50%{opacity:1;transform:none} 100%{opacity:1} }
+@keyframes rs3d { 0%,48.86%{opacity:0;transform:translateX(-26px)} 51.82%{opacity:1;transform:none} 100%{opacity:1} }
+@keyframes rs3e { 0%,50.68%{opacity:0;transform:translateX(26px)} 53.64%{opacity:1;transform:none} 100%{opacity:1} }
+
+/* -- Scene 4 cues (25–33s) PM Challenge -- */
+.cue--e4  { animation-name: rs4a; }
+.cue--chh { animation-name: rs4b; }
+.cue--chg { animation-name: rs4c; }
+.cue--cho { animation-name: rs4d; }
+@keyframes rs4a { 0%,57.95%{opacity:0;transform:translateX(-16px)} 60.23%{opacity:1;transform:none} 100%{opacity:1} }
+@keyframes rs4b { 0%,59.09%{opacity:0;transform:translateY(20px)} 61.36%{opacity:1;transform:none} 100%{opacity:1} }
+@keyframes rs4c { 0%,61.36%{opacity:0;transform:translateY(24px)} 64.77%{opacity:1;transform:none} 100%{opacity:1} }
+@keyframes rs4d { 0%,64.77%{opacity:0;transform:translateY(16px)} 67.05%{opacity:1;transform:none} 100%{opacity:1} }
+
+/* -- Scene 5 cues (33–40s) Receipts -- */
+.cue--e5 { animation-name: rs5a; }
+.cue--r1 { animation-name: rs5b; }
+.cue--r2 { animation-name: rs5c; }
+.cue--r3 { animation-name: rs5d; }
+.cue--r4 { animation-name: rs5e; }
+.cue--cl { animation-name: rs5f; }
+@keyframes rs5a { 0%,76.14%{opacity:0;transform:translateX(-16px)} 78.41%{opacity:1;transform:none} 100%{opacity:1} }
+@keyframes rs5b { 0%,77.27%{opacity:0;transform:translateX(-22px)} 80%{opacity:1;transform:none} 100%{opacity:1} }
+@keyframes rs5c { 0%,79.09%{opacity:0;transform:translateX(-22px)} 81.82%{opacity:1;transform:none} 100%{opacity:1} }
+@keyframes rs5d { 0%,80.91%{opacity:0;transform:translateX(-22px)} 83.64%{opacity:1;transform:none} 100%{opacity:1} }
+@keyframes rs5e { 0%,82.73%{opacity:0;transform:translateX(-22px)} 85.45%{opacity:1;transform:none} 100%{opacity:1} }
+@keyframes rs5f { 0%,85.23%{opacity:0;transform:translateY(12px)} 87.5%{opacity:1;transform:none} 100%{opacity:1} }
+
+/* -- Scene 6 cues (40–44s) Hire -- */
+.cue--pf  { animation-name: rs6p; }
+.cue--end { animation-name: rs6a; }
+.cue--es  { animation-name: rs6b; }
+.cue--el  { animation-name: rs6c; }
+.cue--ec  { animation-name: rs6d; }
+@keyframes rs6p { 0%,90.91%{opacity:0} 95.45%{opacity:1} 100%{opacity:1} }
+@keyframes rs6a { 0%,92.05%{opacity:0;transform:translateY(40px)} 95.45%{opacity:1;transform:none} 100%{opacity:1;transform:none} }
+@keyframes rs6b { 0%,93.18%{opacity:0;transform:translateY(22px)} 96.59%{opacity:1;transform:none} 100%{opacity:1;transform:none} }
+@keyframes rs6c { 0%,94.32%{opacity:0;transform:translateY(18px)} 97.73%{opacity:1;transform:none} 100%{opacity:1;transform:none} }
+@keyframes rs6d { 0%,95.45%{opacity:0;transform:translateY(16px)} 98.86%{opacity:1;transform:none} 100%{opacity:1;transform:none} }
+
+/* ================================================================
+   TRANSPORT — brutalist bar
+   ================================================================ */
+.transport {
+  position: fixed; left: 50%; bottom: clamp(1rem, 3vh, 2rem); transform: translateX(-50%);
+  z-index: 40; width: min(720px, 92vw);
+  display: flex; align-items: center; gap: .55rem;
+  padding: .5rem .6rem; background: var(--paper);
+  border: 2px solid var(--ink); box-shadow: var(--shadow);
+}
+.t-btn {
+  flex: none; display: grid; place-items: center;
+  width: 40px; height: 40px; background: var(--paper); color: var(--ink);
+  border: 2px solid var(--ink); cursor: pointer; transition: background .12s, color .12s;
+}
+.t-btn:hover { background: var(--ink); color: var(--acid); }
+.t-play { background: var(--acid); }
+.t-play:hover { background: var(--ink); color: var(--acid); }
+.ic-pause { display: none; }
+.is-playing .ic-play { display: none; }
+.is-playing .ic-pause { display: block; }
+
+.track { position: relative; flex: 1; height: 36px; cursor: pointer; display: flex; align-items: center; }
+.track::before { content:""; position:absolute; left:0; right:0; height:8px; border:2px solid var(--ink); background: var(--paper); }
+.track__fill { position:absolute; left:2px; height:4px; top:50%; transform:translateY(-50%); width:0; background: var(--ink); }
+.track__head { position:absolute; width:14px; height:18px; background: var(--acid); border:2px solid var(--ink); left:0; transform: translateX(-50%); }
+.track__chapters { position:absolute; left:0; right:0; height:36px; }
+.track__chapters i { position:absolute; top:50%; width:2px; height:14px; transform: translate(-50%,-50%); background: var(--ink); }
+
+.t-time { font-size: .7rem; font-weight: 700; color: var(--soft); white-space: nowrap; }
+.t-speed { width: auto; padding: 0 .6rem; font-size: .74rem; font-weight: 700; }
+
+.chapter-name {
+  position: fixed; left: 50%; bottom: calc(clamp(1rem,3vh,2rem) + 66px); transform: translateX(-50%);
+  z-index: 40; font-size: .72rem; font-weight: 700; letter-spacing: .2em;
+  background: var(--ink); color: var(--acid); padding: .25rem .7rem;
+}
+.hint {
+  position: fixed; top: 16px; left: 50%; transform: translateX(-50%); z-index: 40;
+  font-size: .66rem; font-weight: 700; letter-spacing: .14em; color: var(--mute);
+  transition: opacity .3s; text-align: center; white-space: nowrap;
+}
+.hint.hide { opacity: 0; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 720px) {
+  .reel, .caps { grid-template-columns: 1fr; }
+  .scene--2 .film-card:last-child { display: none; }
+  .rail li { grid-template-columns: 5rem 1fr; gap: .6rem; }
+  .amb--mark { font-size: 30vh; }
+  .hint { display: none; }
+  .day-grid { max-width: 320px; }
+  .dg { width: 22px; height: 22px; }
+}
+
+/* ---------- reduced motion: calm scrollable CV ---------- */
+@media (prefers-reduced-motion: reduce) {
+  body { overflow: auto; }
+  .film { position: static; }
+  .stage { position: static; display: block; height: auto; }
+  .amb, .transport, .chapter-name, .hint { display: none; }
+  .scene {
+    position: static; opacity: 1; visibility: visible; animation: none;
+    max-width: 760px; padding: 3rem 1.5rem; border-bottom: 2px solid var(--ink);
+  }
+  .scene--0, .scene--6 { inset: auto; }
+  .cue { animation: none; opacity: 1; transform: none; }
+  .scene--2 .film-card:last-child { display: block; }
+  .scene--0::after, .scene--6::after { display: none; }
+}
