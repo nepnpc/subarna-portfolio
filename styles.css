@@ -5,7 +5,7 @@
    ================================================================ */
 
 :root {
-  --total: 36s;
+  --total: 44s;
   --t: 0s;
 
   --paper:  #f4f4f1;
@@ -245,8 +245,8 @@ em { font-style: normal; background: var(--acid); color: var(--ink); padding: 0 
 @keyframes s1 { 0%,9.09%{opacity:0;visibility:hidden;transform:translateY(20px)} 11.36%{opacity:1;visibility:visible;transform:none} 24%{opacity:1} 25%{opacity:0;visibility:hidden} 100%{opacity:0;visibility:hidden} }
 @keyframes s2 { 0%,25%{opacity:0;visibility:hidden;transform:translateY(20px)} 27.27%{opacity:1;visibility:visible;transform:none} 42%{opacity:1} 43.18%{opacity:0;visibility:hidden} 100%{opacity:0;visibility:hidden} }
 @keyframes s3 { 0%,43.18%{opacity:0;visibility:hidden;transform:translateY(20px)} 45.45%{opacity:1;visibility:visible;transform:none} 55.5%{opacity:1} 56.82%{opacity:0;visibility:hidden} 100%{opacity:0;visibility:hidden} }
-@keyframes s5 { 0%,69.44%{opacity:0;visibility:hidden;transform:translateY(20px)} 72.22%{opacity:1;visibility:visible;transform:none} 87.5%{opacity:1} 88.89%{opacity:0;visibility:hidden} 100%{opacity:0;visibility:hidden} }
-@keyframes s6 { 0%,88.89%{opacity:0;visibility:hidden;transform:translateY(24px)} 91.67%{opacity:1;visibility:visible;transform:none} 100%{opacity:1;visibility:visible;transform:none} }
+@keyframes s5 { 0%,56.82%{opacity:0;visibility:hidden;transform:translateY(20px)} 61.36%{opacity:1;visibility:visible;transform:none} 71.59%{opacity:1} 72.73%{opacity:0;visibility:hidden} 100%{opacity:0;visibility:hidden} }
+@keyframes s6 { 0%,72.73%{opacity:0;visibility:hidden;transform:translateY(24px)} 75%{opacity:1;visibility:visible;transform:none} 100%{opacity:1;visibility:visible;transform:none} }
 
 /* -- Scene 0 cues (0–4s) -- */
 .cue--boot1 { animation-name: rsB1; }
@@ -291,12 +291,12 @@ em { font-style: normal; background: var(--acid); color: var(--ink); padding: 0 
 .cue--r3 { animation-name: rs5d; }
 .cue--r4 { animation-name: rs5e; }
 .cue--cl { animation-name: rs5f; }
-@keyframes rs5a { 0%,70.83%{opacity:0;transform:translateX(-16px)} 73.61%{opacity:1;transform:none} 100%{opacity:1} }
-@keyframes rs5b { 0%,72.22%{opacity:0;transform:translateX(-22px)} 75.56%{opacity:1;transform:none} 100%{opacity:1} }
-@keyframes rs5c { 0%,74.44%{opacity:0;transform:translateX(-22px)} 77.78%{opacity:1;transform:none} 100%{opacity:1} }
-@keyframes rs5d { 0%,76.67%{opacity:0;transform:translateX(-22px)} 80%{opacity:1;transform:none} 100%{opacity:1} }
-@keyframes rs5e { 0%,78.89%{opacity:0;transform:translateX(-22px)} 82.22%{opacity:1;transform:none} 100%{opacity:1} }
-@keyframes rs5f { 0%,81.94%{opacity:0;transform:translateY(12px)} 84.72%{opacity:1;transform:none} 100%{opacity:1} }
+@keyframes rs5a { 0%,57.95%{opacity:0;transform:translateX(-16px)} 60.23%{opacity:1;transform:none} 100%{opacity:1} }
+@keyframes rs5b { 0%,59.09%{opacity:0;transform:translateX(-22px)} 61.82%{opacity:1;transform:none} 100%{opacity:1} }
+@keyframes rs5c { 0%,60.91%{opacity:0;transform:translateX(-22px)} 63.64%{opacity:1;transform:none} 100%{opacity:1} }
+@keyframes rs5d { 0%,62.73%{opacity:0;transform:translateX(-22px)} 65.45%{opacity:1;transform:none} 100%{opacity:1} }
+@keyframes rs5e { 0%,64.55%{opacity:0;transform:translateX(-22px)} 67.27%{opacity:1;transform:none} 100%{opacity:1} }
+@keyframes rs5f { 0%,67.05%{opacity:0;transform:translateY(12px)} 69.32%{opacity:1;transform:none} 100%{opacity:1} }
 
 /* -- Scene 6 cues (32–36s) Hire -- */
 .cue--pf  { animation-name: rs6p; }
@@ -304,11 +304,11 @@ em { font-style: normal; background: var(--acid); color: var(--ink); padding: 0 
 .cue--es  { animation-name: rs6b; }
 .cue--el  { animation-name: rs6c; }
 .cue--ec  { animation-name: rs6d; }
-@keyframes rs6p { 0%,88.89%{opacity:0} 94.44%{opacity:1} 100%{opacity:1} }
-@keyframes rs6a { 0%,90.28%{opacity:0;transform:translateY(40px)} 94.44%{opacity:1;transform:none} 100%{opacity:1;transform:none} }
-@keyframes rs6b { 0%,91.67%{opacity:0;transform:translateY(22px)} 95.83%{opacity:1;transform:none} 100%{opacity:1;transform:none} }
-@keyframes rs6c { 0%,93.06%{opacity:0;transform:translateY(18px)} 97.22%{opacity:1;transform:none} 100%{opacity:1;transform:none} }
-@keyframes rs6d { 0%,94.44%{opacity:0;transform:translateY(16px)} 98.61%{opacity:1;transform:none} 100%{opacity:1;transform:none} }
+@keyframes rs6p { 0%,72.73%{opacity:0} 77.27%{opacity:1} 100%{opacity:1} }
+@keyframes rs6a { 0%,73.86%{opacity:0;transform:translateY(40px)} 77.27%{opacity:1;transform:none} 100%{opacity:1;transform:none} }
+@keyframes rs6b { 0%,75%{opacity:0;transform:translateY(22px)} 78.41%{opacity:1;transform:none} 100%{opacity:1;transform:none} }
+@keyframes rs6c { 0%,76.14%{opacity:0;transform:translateY(18px)} 79.55%{opacity:1;transform:none} 100%{opacity:1;transform:none} }
+@keyframes rs6d { 0%,77.27%{opacity:0;transform:translateY(16px)} 80.68%{opacity:1;transform:none} 100%{opacity:1;transform:none} }
 
 /* ================================================================
    TRANSPORT — brutalist bar

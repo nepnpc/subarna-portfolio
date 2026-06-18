@@ -8,7 +8,7 @@
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (reduced) return;                          // CSS already shows the static CV
 
-  const TOTAL = 36;                             // must match --total in CSS
+  const TOTAL = 44;                             // must match --total in CSS
   const root = document.documentElement;
   const film = document.getElementById("film");
   const playBtn = document.getElementById("play");
@@ -30,7 +30,7 @@
     { t: 19, name: "Craft" },
     { t: 25, name: "Path" },
     { t: 32, name: "Hire" },
-  ];
+  ]; // total 44s; challenge scene removed, path/hire shifted 8s earlier
   const speeds = [1, 1.5, 2, 0.5];
 
   let time = 0, playing = false, speed = 1, last = 0, raf = null, hinted = false;
