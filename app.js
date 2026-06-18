@@ -8,7 +8,7 @@
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (reduced) return;                          // CSS already shows the static CV
 
-  const TOTAL = 44;                             // must match --total in CSS
+  const TOTAL = 36;                             // must match --total in CSS
   const root = document.documentElement;
   const film = document.getElementById("film");
   const playBtn = document.getElementById("play");
@@ -28,9 +28,8 @@
     { t: 4,  name: "Who" },
     { t: 11, name: "Shipped" },
     { t: 19, name: "Craft" },
-    { t: 25, name: "Challenge" },
-    { t: 33, name: "Path" },
-    { t: 40, name: "Hire" },
+    { t: 25, name: "Path" },
+    { t: 32, name: "Hire" },
   ];
   const speeds = [1, 1.5, 2, 0.5];
 
@@ -132,7 +131,7 @@
     if (e.code === "Space") { e.preventDefault(); toggle(); }
     else if (e.key === "ArrowRight") seek(time + 5);
     else if (e.key === "ArrowLeft")  seek(time - 5);
-    else if (/^[1-7]$/.test(e.key)) seek(chapters[+e.key - 1].t);
+    else if (/^[1-6]$/.test(e.key)) seek(chapters[+e.key - 1].t);
   });
 
   /* ---- boot ---- */
